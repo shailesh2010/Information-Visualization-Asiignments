@@ -1,0 +1,43 @@
+<html>
+<head>
+
+	<style>
+	
+	}
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+	
+
+
+</head>
+
+<body >
+<script type="text/javascript" >
+	d3.csv("data.csv",function(result){
+		dataloaded(result);
+	})
+	function dataloaded(result)
+	{
+		// console.log(result);
+		var data=result.map(function(d){
+			return{
+				name:d.Country,
+				year:new Date(d.Year).getYear()+1900,
+				GDP:+d['GDP per Capita'].replace("$","").replace(",","")
+			}
+		});
+		
+		data=data.filter(function(d){
+			return d.year==2012;
+		});
+		
+		data=data.sort(function(a,b){
+			return d3.descending(a.name,b.name);
+		});
+		console.log(data);
+		 
+	}
+</script>
+</body>
+</html>
